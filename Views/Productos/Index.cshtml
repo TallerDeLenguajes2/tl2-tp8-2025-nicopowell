@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Productos Page";
+}
+
+@model List<Producto>
+
+<section>
+    <h1 class="display-4">Productos</h1>
+    <div class="row">
+        @{
+            foreach (Producto producto in Model)
+            {
+                <div class="col-sm-6 col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@producto.Descripcion</h5>
+                            <p class="card-text">$@producto.Precio</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</section>
