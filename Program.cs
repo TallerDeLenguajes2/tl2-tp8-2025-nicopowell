@@ -1,4 +1,23 @@
+using MVC.Interfaces;
+using MVC.Repositorios;
+using MVC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Servicios de Sesin y Acceso a Contexto
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// Registro de la Inyección de Dependencia
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<IPresupuestoRepository, PresupuestoRepository>();
+builder.Services.AddScoped<IUserRepository, UsuarioRepository>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -12,6 +31,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseRouting();

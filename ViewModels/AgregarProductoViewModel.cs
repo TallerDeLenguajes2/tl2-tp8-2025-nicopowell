@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering; // Necesario para SelectList
 
-namespace SistemaVentas.Web.ViewModels
+namespace MVC.ViewModels
 
 {
     public class AgregarProductoViewModel

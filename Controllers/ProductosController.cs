@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using SistemaVentas.Web.ViewModels;
+using MVC.Interfaces;
+using MVC.Repositorios;
+using MVC.ViewModels;
 public class ProductosController : Controller
 {
-    private readonly ProductoRepository _productoRepository;
+    private readonly IProductoRepository _productoRepository;
 
     public ProductosController()
     {
