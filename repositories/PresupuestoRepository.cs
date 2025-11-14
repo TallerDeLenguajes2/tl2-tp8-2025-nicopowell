@@ -160,7 +160,7 @@ public class PresupuestoRepository
         conexion.Close();
     }
 
-    public void CreateDetalle(int idPresupuesto, PresupuestoDetalle detalle)
+    public void CreateDetalle(int idPresupuesto, int idProducto, int cantidad)
     {
         using var conexion = new SqliteConnection(cadenaConexion);
         conexion.Open();
@@ -172,8 +172,8 @@ public class PresupuestoRepository
         using var comando = new SqliteCommand(sql, conexion);
 
         comando.Parameters.Add(new SqliteParameter("@idPresupuesto", idPresupuesto));
-        comando.Parameters.Add(new SqliteParameter("@idProducto", detalle.Producto.IdProducto));
-        comando.Parameters.Add(new SqliteParameter("@cantidad", detalle.Cantidad));
+        comando.Parameters.Add(new SqliteParameter("@idProducto", idProducto));
+        comando.Parameters.Add(new SqliteParameter("@cantidad", cantidad));
 
         comando.ExecuteNonQuery();
         conexion.Close();

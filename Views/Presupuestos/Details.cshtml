@@ -5,11 +5,17 @@
     {
         <h1 class="display-4">Detalle: @Model.NombreDestinatario</h1>
         <p>@Model.FechaCreacion.Day/@Model.FechaCreacion.Month/@Model.FechaCreacion.Year</p>
+        <a asp-action="AgregarProducto" asp-route-id="@Model.IdPresupuesto" class="btn btn-success">
+            + Añadir Producto
+        </a>
         <a asp-action="Edit" asp-route-id="@Model.IdPresupuesto" class="btn btn-warning">
             Editar
         </a>
         <a asp-action="Delete" asp-route-id="@Model.IdPresupuesto" class="btn btn-danger">
             Eliminar
+        </a>
+        <a asp-action="Edit" asp-route-id="@Model.IdPresupuesto" class="btn btn-warning">
+            Editar
         </a>
         <hr>
 

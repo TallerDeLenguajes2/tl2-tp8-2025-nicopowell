@@ -1,4 +1,8 @@
-@model Presupuesto
+@{
+    ViewData["Title"] = "Crear Presupuesto";
+}
+
+@model SistemaVentas.Web.ViewModels.PresupuestoViewModel
 
 <section>
     <h1 class="display-4">Crear presupuesto</h1>
@@ -7,7 +11,10 @@
     <div class="mb-3">
         <label asp-for="NombreDestinatario" class="form-label">Nombre del destinatario</label>
         <input asp-for="NombreDestinatario" class="form-control">
+        <span asp-validation-for="NombreDestinatario" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Crear</button>
 </form>
 </section>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
