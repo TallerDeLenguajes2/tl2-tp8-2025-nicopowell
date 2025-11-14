@@ -2,24 +2,24 @@ using Microsoft.AspNetCore.Mvc;
 
 public class PresupuestosController: Controller
 {
-    private PresupuestoRepository presupuestoRepository;
+    private readonly PresupuestoRepository _presupuestoRepository;
 
     public PresupuestosController()
     {
-        presupuestoRepository = new PresupuestoRepository();
+        _presupuestoRepository = new PresupuestoRepository();
     }
 
     [HttpGet]
     public IActionResult Index()
     {
-        List<Presupuesto> presupuestos = presupuestoRepository.GetAll();
+        List<Presupuesto> presupuestos = _presupuestoRepository.GetAll();
         return View(presupuestos);
     }
 
     [HttpGet]
-    public IActionResult Details()
+    public IActionResult Details(int idPresupuesto)
     {
-        List<Presupuesto> presupuestos = presupuestoRepository.GetAll();
-        return View(presupuestos);
+        Presupuesto presupuesto = _presupuestoRepository.GetById(idPresupuesto);
+        return View(presupuesto);
     }
 }

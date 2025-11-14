@@ -15,22 +15,14 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <h5 class="card-title">@presupuesto.NombreDestinatario</h5>
-                            <p class="card-text">@presupuesto.FechaCreacion.Day/@presupuesto.FechaCreacion.Month/@presupuesto.FechaCreacion.Year</p>
+                            <p class="card-text">
+                                @presupuesto.FechaCreacion.Day/@presupuesto.FechaCreacion.Month/@presupuesto.FechaCreacion.Year
+                            </p>
                         </div>
-                        @{
-                            if (presupuesto.Detalle != null)
-                            {
-                                <ul class="list-group list-group-flush">
-                                    @{
-                                        foreach (PresupuestoDetalle detalle in presupuesto.Detalle)
-                                        {
-                                            <li class="list-group-item">An item</li>
-                                        }
-                                    }
-                                </ul>
-                            }
-                        }
-                        
+                        <a asp-action="Details" asp-route-idPresupuesto="@presupuesto.IdPresupuesto"
+                            class="btn btn-primary">
+                            Ver Detalle
+                        </a>
                     </div>
                 </div>
             </div>

@@ -10,6 +10,11 @@ public class Presupuesto
     public int IdPresupuesto { get => idPresupuesto; set => idPresupuesto = value; }
     public List<PresupuestoDetalle> Detalle { get => detalle; set => detalle = value; }
 
+    public Presupuesto()
+    {
+        Detalle = new List<PresupuestoDetalle>();
+    }
+
     // Metodos
     public int montoPresupuesto()
     {

@@ -1,0 +1,71 @@
+@{
+    ViewData["Title"] = "Productos Page";
+}
+
+@model Presupuesto
+
+@{
+    ViewData["Title"] = "Detalle de Presupuesto";
+}
+
+<section>
+    @if (Model != null)
+    {
+        <h1 class="display-4">Detalle: @Model.NombreDestinatario</h1>
+        <p>@Model.FechaCreacion.Day/@Model.FechaCreacion.Month/@Model.FechaCreacion.Year</p>
+        <hr>
+
+        <h3 class="mt-4">Productos</h3>
+
+        @if (Model.Detalle != null && Model.Detalle.Any())
+        {
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio unidad</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (PresupuestoDetalle detalle in Model.Detalle)
+                    {
+                        <tr>
+                            <td>@detalle.Producto.Descripcion</td>
+                            <td>$@detalle.Producto.Precio</td>
+                            <td>@detalle.Cantidad</td>
+                            <td>$@(detalle.Producto.Precio * detalle.Cantidad)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="fw-semi-bold">
+                        <td colspan="3" class="text-right"><strong>Total (Sin IVA):</strong></td>
+                        <td><strong>$@Model.montoPresupuesto()</strong></td>
+                    </tr>
+                    <tr class="fw-bold">
+                        <td colspan="3" class="text-right"><strong>Total (Con IVA 21%):</strong></td>
+                        <td><strong>$@Model.montoPresupuestoConIva()</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">
+                Este presupuesto no tiene productos.
+            </div>
+        }
+    }
+    else
+    {
+        <h1 class="display-4 text-danger">Error</h1>
+        <p class="alert alert-danger">No se encontró el presupuesto.</p>
+    }
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-primary">Volver al listado</a>
+    </div>
+
+</section>

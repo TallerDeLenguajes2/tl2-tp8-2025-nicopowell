@@ -58,29 +58,29 @@ public class PresupuestoRepository
         conexion.Open();
 
         string sql = @"
-                        SELECT 
-                            p.idPresupuesto, 
-                            p.nombreDestinatario, 
-                            p.fechaCreacion, 
-                            prod.idProducto, 
-                            prod.descripcion, 
-                            prod.precio, 
-                            d.cantidad                    
-                        FROM 
-                            Presupuestos AS p
-                        INNER JOIN 
-                            PresupuestosDetalle AS d ON p.idPresupuesto = d.idPresupuesto
-                        INNER JOIN 
-                            Productos AS prod ON d.idProducto = prod.idProducto
-                        WHERE 
-                            p.idPresupuesto = 1";
+                    SELECT 
+                        p.idPresupuesto, 
+                        p.nombreDestinatario, 
+                        p.fechaCreacion, 
+                        prod.idProducto, 
+                        prod.descripcion, 
+                        prod.precio, 
+                        d.cantidad                    
+                    FROM 
+                        Presupuestos AS p
+                    LEFT JOIN 
+                        PresupuestosDetalle AS d ON p.idPresupuesto = d.idPresupuesto
+                    LEFT JOIN 
+                        Productos AS prod ON d.idProducto = prod.idProducto
+                    WHERE 
+                        p.idPresupuesto = @idPresupuesto";
 
         using var comando = new SqliteCommand(sql, conexion);
-
-        comando.Parameters.Add(new SqliteParameter("@idProducto", id));
+        comando.Parameters.Add(new SqliteParameter("@idPresupuesto", id));
 
         using var lector = comando.ExecuteReader();
         Presupuesto presupuesto = null;
+
         while (lector.Read())
         {
             if (presupuesto == null)
@@ -90,20 +90,26 @@ public class PresupuestoRepository
                     IdPresupuesto = Convert.ToInt32(lector["idPresupuesto"]),
                     NombreDestinatario = lector["nombreDestinatario"].ToString(),
                     FechaCreacion = Convert.ToDateTime(lector["fechaCreacion"]),
+                    Detalle = new List<PresupuestoDetalle>() // ¡Importante inicializar!
                 };
             }
-            ;
-            var presupuestoDetalle = new PresupuestoDetalle
-            {
-                Producto = new Producto
-                {
-                    IdProducto = Convert.ToInt32(lector["idProducto"]),
-                    Descripcion = lector["producto"].ToString(),
-                    Precio = Convert.ToInt32(lector["precio"])
-                },
-                Cantidad = Convert.ToInt32(lector["cantidad"])
-            };
 
+            string idProductoString = lector["idProducto"].ToString();
+
+            if (!string.IsNullOrEmpty(idProductoString))
+            {
+                var presupuestoDetalle = new PresupuestoDetalle
+                {
+                    Producto = new Producto
+                    {
+                        IdProducto = Convert.ToInt32(idProductoString),
+                        Descripcion = lector["descripcion"].ToString(),
+                        Precio = Convert.ToInt32(lector["precio"])
+                    },
+                    Cantidad = Convert.ToInt32(lector["cantidad"])
+                };
+                presupuesto.Detalle.Add(presupuestoDetalle);
+            }
         }
         conexion.Close();
         return presupuesto;
