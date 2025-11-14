@@ -16,14 +16,14 @@ public class Presupuesto
     }
 
     // Metodos
-    public int montoPresupuesto()
+    public decimal montoPresupuesto()
     {
         return Detalle.Sum(det => det.Producto.Precio * det.Cantidad);
     }
 
-    public int montoPresupuestoConIva()
+    public decimal montoPresupuestoConIva()
     {
-        return (int)(Detalle.Sum(det => det.Producto.Precio * det.Cantidad) * 1.21);
+        return Detalle.Sum(det => det.Producto.Precio * det.Cantidad) * (decimal) 1.21;
     }
     
     public int CantidadProductos()
