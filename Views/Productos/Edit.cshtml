@@ -1,0 +1,17 @@
+@model Producto
+
+<section>
+    <h1 class="display-4">Editar producto</h1>
+    <hr>
+    <form asp-action="Edit" asp-controller="Productos" method="post" asp-route-id="@Model.IdProducto">
+        <div class="mb-3">
+            <label asp-for="Descripcion" class="form-label">Descripcion</label>
+            <input asp-for="Descripcion" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Precio" class="form-label">Precio</label>
+            <input asp-for="Precio" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-warning">Editar</button>
+    </form>
+</section>

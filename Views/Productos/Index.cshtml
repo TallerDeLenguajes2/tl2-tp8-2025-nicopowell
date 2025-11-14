@@ -6,6 +6,8 @@
 
 <section>
     <h1 class="display-4">Productos</h1>
+    <a asp-action="Create" class="btn btn-primary">Crear producto</a>
+    <hr>
     <div class="row">
         @{
             foreach (Producto producto in Model)
@@ -15,6 +17,8 @@
                         <div class="card-body">
                             <h5 class="card-title">@producto.Descripcion</h5>
                             <p class="card-text">$@producto.Precio</p>
+                            <a asp-action="Edit" asp-route-id="@producto.IdProducto" class="btn btn-warning">Editar</a>
+                            <a asp-action="Delete" asp-route-id="@producto.IdProducto" class="btn btn-danger">Borrar</a>
                         </div>
                     </div>
                 </div>
