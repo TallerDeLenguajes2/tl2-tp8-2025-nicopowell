@@ -1,0 +1,13 @@
+@model Presupuesto
+
+<section>
+    <h1 class="display-4">Crear presupuesto</h1>
+    <hr>
+    <form asp-action="Create" asp-controller="Presupuestos" method="post">
+    <div class="mb-3">
+        <label asp-for="NombreDestinatario" class="form-label">Nombre del destinatario</label>
+        <input asp-for="NombreDestinatario" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Crear</button>
+</form>
+</section>

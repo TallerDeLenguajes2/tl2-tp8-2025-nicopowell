@@ -22,4 +22,18 @@ public class PresupuestosController: Controller
         Presupuesto presupuesto = _presupuestoRepository.GetById(idPresupuesto);
         return View(presupuesto);
     }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(Presupuesto presupuesto)
+    {
+        presupuesto.FechaCreacion = DateTime.Now;
+        _presupuestoRepository.Create(presupuesto);
+        return RedirectToAction("Index");
+    }
 }
