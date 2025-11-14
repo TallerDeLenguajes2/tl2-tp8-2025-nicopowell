@@ -1,18 +1,16 @@
-@{
-    ViewData["Title"] = "Productos Page";
-}
-
 @model Presupuesto
-
-@{
-    ViewData["Title"] = "Detalle de Presupuesto";
-}
 
 <section>
     @if (Model != null)
     {
         <h1 class="display-4">Detalle: @Model.NombreDestinatario</h1>
         <p>@Model.FechaCreacion.Day/@Model.FechaCreacion.Month/@Model.FechaCreacion.Year</p>
+        <a asp-action="Edit" asp-route-id="@Model.IdPresupuesto" class="btn btn-warning">
+            Editar
+        </a>
+        <a asp-action="Delete" asp-route-id="@Model.IdPresupuesto" class="btn btn-danger">
+            Eliminar
+        </a>
         <hr>
 
         <h3 class="mt-4">Productos</h3>
@@ -35,7 +33,7 @@
                             <td>@detalle.Producto.Descripcion</td>
                             <td>$@detalle.Producto.Precio</td>
                             <td>@detalle.Cantidad</td>
-                            <td>$@(detalle.Producto.Precio * detalle.Cantidad)</td>
+                            <td>$@(detalle.Producto.Precio* detalle.Cantidad)</td>
                         </tr>
                     }
                 </tbody>

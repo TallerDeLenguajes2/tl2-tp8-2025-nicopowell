@@ -140,6 +140,26 @@ public class PresupuestoRepository
         return false;
     }
 
+    public void Update(int id, Presupuesto nuevoPresupuesto)
+    {
+        using var conexion = new SqliteConnection(cadenaConexion);
+        conexion.Open();
+
+        string sql = @"
+                        UPDATE Presupuestos 
+                        SET nombreDestinatario = @nombreDestinatario
+                        WHERE idPresupuesto = @idPresupuesto";
+
+        using var comando = new SqliteCommand(sql, conexion);
+
+        comando.Parameters.Add(new SqliteParameter("@nombreDestinatario", nuevoPresupuesto.NombreDestinatario));
+        comando.Parameters.Add(new SqliteParameter("@idPresupuesto", id));
+
+        comando.ExecuteNonQuery();
+
+        conexion.Close();
+    }
+
     public void CreateDetalle(int idPresupuesto, PresupuestoDetalle detalle)
     {
         using var conexion = new SqliteConnection(cadenaConexion);

@@ -1,0 +1,14 @@
+@model Presupuesto
+
+<section>
+    <h1 class="display-4">Eliminar detalle</h1>
+    <hr>
+    <p class="lead">¿Estas seguro que quieres eliminar este detalle?</p>
+    <p><strong>Nombre del destinatario: </strong> @Model.NombreDestinatario</p>
+    <p><strong>Fecha de creación: </strong> @Model.FechaCreacion.Day/@Model.FechaCreacion.Month/@Model.FechaCreacion.Year</p>
+
+    <form asp-action="Delete" asp-controller="Presupuestos" method="post" asp-route-id="@Model.IdPresupuesto">
+        <button type="submit" class="btn btn-danger">Borrar</button>
+        <a asp-action="Details" class="btn btn-secondary" asp-route-id="@Model.IdPresupuesto">Cancelar</a>
+    </form>
+</section>

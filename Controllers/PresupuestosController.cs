@@ -17,9 +17,9 @@ public class PresupuestosController: Controller
     }
 
     [HttpGet]
-    public IActionResult Details(int idPresupuesto)
+    public IActionResult Details(int id)
     {
-        Presupuesto presupuesto = _presupuestoRepository.GetById(idPresupuesto);
+        Presupuesto presupuesto = _presupuestoRepository.GetById(id);
         return View(presupuesto);
     }
 
@@ -34,6 +34,34 @@ public class PresupuestosController: Controller
     {
         presupuesto.FechaCreacion = DateTime.Now;
         _presupuestoRepository.Create(presupuesto);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        Presupuesto presupuesto = _presupuestoRepository.GetById(id);
+        return View(presupuesto);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(int id, Presupuesto presupuestoModificado)
+    {
+        _presupuestoRepository.Update(id, presupuestoModificado);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        Presupuesto presupuesto = _presupuestoRepository.GetById(id);
+        return View(presupuesto);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public IActionResult DeleteConfirmado(int id)
+    {
+        _presupuestoRepository.DeleteById(id);
         return RedirectToAction("Index");
     }
 }

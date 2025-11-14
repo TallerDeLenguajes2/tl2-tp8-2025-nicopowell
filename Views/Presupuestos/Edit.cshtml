@@ -1,0 +1,13 @@
+@model Presupuesto
+
+<section>
+    <h1 class="display-4">Editar presupuesto</h1>
+    <hr>
+    <form asp-action="Edit" asp-controller="Presupuestos" method="post" asp-route-id="@Model.IdPresupuesto">
+    <div class="mb-3">
+        <label asp-for="NombreDestinatario" class="form-label">Nombre del destinatario</label>
+        <input asp-for="NombreDestinatario" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Editar</button>
+</form>
+</section>
