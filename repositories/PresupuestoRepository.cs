@@ -1,6 +1,7 @@
 using Microsoft.Data.Sqlite;
+using MVC.Interfaces;
 
-public class PresupuestoRepository
+public class PresupuestoRepository : IPresupuestoRepository
 {
     private readonly string cadenaConexion = "Data Source=DB/Tienda.db";
     public void Create(Presupuesto presupuesto)
@@ -113,31 +114,6 @@ public class PresupuestoRepository
         }
         conexion.Close();
         return presupuesto;
-    }
-
-    public bool Exist(int id)
-    {
-        using var conexion = new SqliteConnection(cadenaConexion);
-        conexion.Open();
-
-        string sql = @"
-                        SELECT *
-                        FROM Presupuestos
-                        WHERE idPresupuesto = @idPresupuesto";
-
-        using var comando = new SqliteCommand(sql, conexion);
-
-        comando.Parameters.Add(new SqliteParameter("@idPresupuesto", id));
-
-        using var lector = comando.ExecuteReader();
-
-        if (lector.Read())
-        {
-            conexion.Close();
-            return true;
-        }
-        conexion.Close();
-        return false;
     }
 
     public void Update(int id, Presupuesto nuevoPresupuesto)

@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using SistemaVentas.Web.ViewModels;
+using MVC.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering; // Necesario para SelectList
 
 public class PresupuestosController : Controller
 {
-    private readonly PresupuestoRepository _presupuestoRepository;
+    private readonly IPresupuestoRepository _presupuestoRepository;
     // Necesitamos el repositorio de Productos para llenar el dropdown
     private readonly ProductoRepository _productoRepo = new ProductoRepository();
 
